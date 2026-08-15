@@ -19,5 +19,3 @@
 9. Push back when needed. If the requested approach is risky, too complex, or there is a simpler path that better fits the codebase, say so and recommend the simpler option.
 
 10. Bias toward caution on substantial changes, but use judgment for trivial edits. Do not slow down obvious one-line fixes with unnecessary process.
-
-11. Explain Bash commands in Chinese. Whenever you invoke a bash command, give a one-sentence Chinese explanation of what the command does, so the user can follow along without reading the raw command.
