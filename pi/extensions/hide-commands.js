@@ -18,13 +18,13 @@
 
 const HIDDEN_SOURCES = [
   "u:npm:pi-subagents",
-  "u:npm:@dietrichgebert/ponytail",
   "u:npm:pi-web-access",
-  "u:npm:pi-cc-extensions",
+  "u:npm:@dietrichgebert/ponytail",
+  "u:npm:@juicesharp/rpiv-todo",
 ];
 
 /** Command names to keep even when their source package is hidden. */
-const HIDDEN_EXCEPTIONS = ["context"];
+const HIDDEN_EXCEPTIONS = [];
 
 const HIDDEN_COMMAND_PREFIXES = [];
 
@@ -42,7 +42,12 @@ function shouldHide(item) {
 }
 
 export default function (pi) {
+  let installed = false;
   pi.on("session_start", (_event, ctx) => {
+    // session_start fires on /new, /resume and session switches; without this
+    // guard each firing wraps the (already wrapped) provider one more time.
+    if (installed) return;
+    installed = true;
     ctx.ui.addAutocompleteProvider((current) => ({
       async getSuggestions(lines, cursorLine, cursorCol, options) {
         const suggestions = await current.getSuggestions(lines, cursorLine, cursorCol, options);
